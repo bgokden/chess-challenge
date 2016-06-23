@@ -39,7 +39,7 @@ public class BoardTest {
     @Test
     public void shouldPositionDummyPieceInEmeptySquaresCorrectly() throws Exception {
         Board board = new Board(3,3);
-        assertTrue(board.putPieceToFirstAvailableSquare(new DummyPiece(), 0, 0));
+        assertNotNull(board.putPieceToFirstAvailableSquare(new DummyPiece(), 0, 0));
         assertEquals(1, board.getPieces().size());
         Piece piece = board.getPieces().get(0);
         assertNotEquals(null, piece);
@@ -47,7 +47,7 @@ public class BoardTest {
         assertEquals(0, piece.getX());
         assertEquals(0, piece.getY());
         board.prettyPrint();
-        assertTrue(board.putPieceToFirstAvailableSquare(new DummyPiece(), 0, 0));
+        assertNotNull(board.putPieceToFirstAvailableSquare(new DummyPiece(), 0, 0));
         assertEquals(2, board.getPieces().size());
         Piece piece1 = board.getPieces().get(1);
         assertNotEquals(null, piece1);

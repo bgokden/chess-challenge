@@ -58,8 +58,9 @@ public class Board {
             Piece copy = PieceType.getInstance(piece.getType());
             copy.setX(piece.getX());
             copy.setY(piece.getY());
-            getPieces().add(copy);
+            pieces.add(copy);
         }
+
         this.lastPositions = initialLastPositions();
         for (Map.Entry<PieceType, Location> pieceTypeLocationEntry : board.getLastPositions().entrySet()) {
             Location location =
@@ -85,13 +86,14 @@ public class Board {
      * @param initialY hinted starting point in Y direction (initial Y > 0)
      * @return
      */
-    public boolean putPieceToFirstAvailableSquare(Piece piece, int initialX, int initialY) {
+    public Location putPieceToFirstAvailableSquare(Piece piece, int initialX, int initialY) {
         if (initialX < 0)
             throw new IllegalArgumentException("Initial X should be larger than 0");
         if (initialY < 0)
             throw new IllegalArgumentException("Initial Y should be larger than 0");
         boolean found = false;
         Location location = lastPositions.get(piece.getType());
+        Location locationToBePlaced = new Location(location.getX(), location.getY());
         initialX = Math.max(initialX, location.getX());
         initialY = Math.max(initialY, location.getY());
         for (int y = initialY; y < this.height; y++) {
@@ -99,7 +101,7 @@ public class Board {
                 boolean moveToNext = false;
                 piece.setX(x);
                 piece.setY(y);
-                for (Piece element : getPieces()) {
+                for (Piece element : pieces) {
                     if (!element.isPossibleToPlace(piece)) {
                         moveToNext = true;
                         break;
@@ -109,10 +111,14 @@ public class Board {
                     continue;
                 }
                 found = true;
+                locationToBePlaced.setX(x);
+                locationToBePlaced.setY(y);
+
                 location.setX(x);
                 location.setY(y);
                 lastPositions.put(piece.getType(), location);
-                getPieces().add(piece);
+                pieces.add(piece);
+
                 break;
             }
             if (found) {
@@ -124,8 +130,10 @@ public class Board {
             location.setX(this.width);
             location.setY(this.height);
             lastPositions.put(piece.getType(), location);
+            locationToBePlaced = null;
         }
-        return found;
+
+        return locationToBePlaced;
     }
 
     public List<Piece> getPieces() {
@@ -182,6 +190,7 @@ public class Board {
     /**
      * Check equality to other objects.
      * Required for solution Set.
+     * TODO: optmize equals method
      * @param obj other object to check equality
      * @return true when the obj are same or two board has same set or pieces.
      */
@@ -204,6 +213,10 @@ public class Board {
         return super.equals(obj);
     }
 
+    /**
+     * TODO: optimize calculations not to use strings
+     * @return int hashcode for set and hashmap
+     */
     @Override
     public int hashCode() {
         Collections.sort(getPieces());
@@ -214,4 +227,12 @@ public class Board {
         return stringBuilder.toString().hashCode();
     }
 
+    public void removePieceAt(int x, int y) {
+        for (Piece piece : this.pieces) {
+            if (piece.getX() == x && piece.getY() == y) {
+                this.pieces.remove(piece);
+                break;
+            }
+        }
+    }
 }

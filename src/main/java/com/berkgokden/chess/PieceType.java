@@ -6,7 +6,7 @@ import com.berkgokden.chess.pieces.*;
  * Piece Enum Type to be used in EnumMap
  */
 public enum PieceType {
-    KING,QUEEN,ROOK,BISHOP,KNIGHT,NONE;
+    KING,QUEEN,ROOK,BISHOP,KNIGHT;
 
     /**
      * A helper class to easy print a piece on board
@@ -25,8 +25,6 @@ public enum PieceType {
                 return 'B';
             case KNIGHT:
                 return 'N';
-            case NONE:
-                return ' ';
             default:
                 return 0;
         }
