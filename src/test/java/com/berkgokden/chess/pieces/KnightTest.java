@@ -7,33 +7,33 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Tests the methods of Rook Piece.
+ * Tests the methods of Knight Piece.
  */
-public class RookTest {
+public class KnightTest {
 
     @Test
-    public void shouldPassWhenPieceTypeReturnsAsRook() throws Exception {
-        assertEquals(PieceType.ROOK, new Rook().getType());
+    public void shouldPassWhenPieceTypeReturnsAsKnight() throws Exception {
+        assertEquals(PieceType.KNIGHT, new Knight().getType());
     }
 
     @Test
     public void shouldPassWhentIsSafeWorksCorrectly() throws Exception {
-        Piece piece = new Rook();
+        Piece piece = new Knight();
         piece.setX(2);
         piece.setY(2);
 
-        // Vertically not safe
+        // Vertically safe
         Piece piece1 = new DummyPiece();
         piece1.setX(2);
         piece1.setY(0);
 
-        assertFalse(piece.isSafe(piece1));
+        assertTrue(piece.isSafe(piece1));
 
-        // Horizontally not safe
+        // Horizontally safe
         piece1.setX(0);
         piece1.setY(2);
 
-        assertFalse(piece.isSafe(piece1));
+        assertTrue(piece.isSafe(piece1));
 
         // Diagonally safe
         piece1.setX(4);
@@ -46,10 +46,16 @@ public class RookTest {
 
         assertTrue(piece.isSafe(piece1));
 
-        // Random Safe position
+        // L shape not safe
         piece1.setX(3);
         piece1.setY(4);
 
-        assertTrue(piece.isSafe(piece1));
+        assertFalse(piece.isSafe(piece1));
+
+        // L shape not safe
+        piece1.setX(1);
+        piece1.setY(4);
+
+        assertFalse(piece.isSafe(piece1));
     }
 }
