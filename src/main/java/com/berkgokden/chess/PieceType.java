@@ -1,10 +1,12 @@
 package com.berkgokden.chess;
 
+import com.berkgokden.chess.pieces.*;
+
 /**
  * Piece Enum Type to be used in EnumMap
  */
 public enum PieceType {
-    KING,QUEEN,ROOK,BISHOP,KNIGHT;
+    KING,QUEEN,ROOK,BISHOP,KNIGHT,NONE;
 
     /**
      * A helper class to easy print a piece on board
@@ -23,8 +25,27 @@ public enum PieceType {
                 return 'B';
             case KNIGHT:
                 return 'N';
+            case NONE:
+                return ' ';
             default:
                 return 0;
+        }
+    }
+
+    public static Piece getInstance(PieceType pieceType) {
+        switch (pieceType) {
+            case KING:
+                return new King();
+            case QUEEN:
+                return new Queen();
+            case ROOK:
+                return new Rook();
+            case BISHOP:
+                return new Bishop();
+            case KNIGHT:
+                return new Knight();
+            default:
+                return null;
         }
     }
 }

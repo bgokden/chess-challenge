@@ -44,6 +44,30 @@ public class Board {
         this.lastPositions = initialLastPositions();
     }
 
+    /**
+     * Copy Constructor for Board
+     * It is required for multithreaded share nothing solution
+     * @param board other Board to clone
+     */
+    public Board(Board board) {
+        this.width = board.getWidth();
+        this.height = board.getHeight();
+        List<Piece> list = board.getPieces();
+        this.pieces = new ArrayList<>(list.size());
+        for (Piece piece : list) {
+            Piece copy = PieceType.getInstance(piece.getType());
+            copy.setX(piece.getX());
+            copy.setY(piece.getY());
+            getPieces().add(copy);
+        }
+        this.lastPositions = initialLastPositions();
+        for (Map.Entry<PieceType, Location> pieceTypeLocationEntry : board.getLastPositions().entrySet()) {
+            Location location =
+                    new Location(pieceTypeLocationEntry.getValue().getX(), pieceTypeLocationEntry.getValue().getY());
+            lastPositions.put(PieceType.valueOf(pieceTypeLocationEntry.getKey().name()), location);
+        }
+    }
+
     public int getWidth() {
         return width;
     }
@@ -75,7 +99,7 @@ public class Board {
                 boolean moveToNext = false;
                 piece.setX(x);
                 piece.setY(y);
-                for (Piece element : pieces) {
+                for (Piece element : getPieces()) {
                     if (!element.isPossibleToPlace(piece)) {
                         moveToNext = true;
                         break;
@@ -88,7 +112,7 @@ public class Board {
                 location.setX(x);
                 location.setY(y);
                 lastPositions.put(piece.getType(), location);
-                pieces.add(piece);
+                getPieces().add(piece);
                 break;
             }
             if (found) {
@@ -108,8 +132,12 @@ public class Board {
         return pieces;
     }
 
+    public void setPieces(List<Piece> pieces) {
+        this.pieces = pieces;
+    }
+
     /**
-     * Initilize a map to piece type to location as 0,0
+     * Initialize a map to piece type to location as 0,0
      * Saving last known safe safe locations significantly improve searching
      * @return map to piece type version known last safe locations
      */
@@ -131,7 +159,7 @@ public class Board {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 char letter = 0;
-                for (Piece piece : pieces) {
+                for (Piece piece : getPieces()) {
                     if (piece.getX() == x && piece.getY() == y) {
                         letter = PieceType.getLetter(piece.getType());
                         break;
@@ -149,6 +177,41 @@ public class Board {
 
     public Map<PieceType, Location> getLastPositions() {
         return lastPositions;
+    }
+
+    /**
+     * Check equality to other objects.
+     * Required for solution Set.
+     * @param obj other object to check equality
+     * @return true when the obj are same or two board has same set or pieces.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Board) {
+            List<Piece> list = ((Board) obj).getPieces();
+            if (getPieces().size() != list.size()) {
+                return false;
+            }
+            Collections.sort(list);
+            Collections.sort(getPieces());
+            for (int i = 0; i < getPieces().size(); i++) {
+                if (!getPieces().get(i).equals(list.get(i))) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        Collections.sort(getPieces());
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Piece piece : getPieces()) {
+            stringBuilder.append(piece.getType().ordinal()+","+piece.getX()+","+piece.getY()+":");
+        }
+        return stringBuilder.toString().hashCode();
     }
 
 }

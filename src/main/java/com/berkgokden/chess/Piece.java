@@ -4,7 +4,7 @@ package com.berkgokden.chess;
  * Piece abstract class is a base class for all types of pieces.
  * Every piece has common x,y, type variables and isSafe method.
  */
-public abstract class Piece{
+public abstract class Piece implements Comparable<Piece> {
     protected int x;
     protected int y;
 
@@ -57,5 +57,63 @@ public abstract class Piece{
     @Override
     public String toString() {
         return getType().name()+","+x+","+y;
+    }
+
+    /**
+     * Compare two pieces by
+     * First type ordinance
+     * Second position in x direction
+     * Third position in y direction
+     * Required for Collection.sort.
+     * Any consistent sorting method would work.
+     * @param o other piece to compare
+     * @return 1 if bigger, 0 if equal, -1 is less than this piece.
+     */
+    @Override
+    public int compareTo(Piece o) {
+        if ( this.getType().ordinal() > o.getType().ordinal()) {
+            return 1;
+        } else if ( this.getType().ordinal() < o.getType().ordinal()) {
+            return -1;
+        }else if ( this.x > o.getX()) {
+            return 1;
+        } else if ( this.x < o.getX()) {
+            return -1;
+        }else if ( this.y > o.getY()) {
+            return 1;
+        } else if ( this.y < o.getY()){
+            return -1;
+        }
+        return 0;
+    }
+
+    /**
+     * Checks equality to other object or piece.
+     * @param obj other object to check
+     * @return true if this object is same as other object or
+     * This piece's type, x position and y position are equal to other piece.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Piece) {
+            Piece piece = (Piece) obj;
+            if (getType().ordinal() == piece.getType().ordinal()
+                    && x == piece.getX()
+                    && y == piece.getY()) {
+                return true;
+            }
+        }
+        return super.equals(obj);
+    }
+
+    /**
+     * HashCode implentation to be used in HashMaps.
+     * This method added since equal method is overridden.
+     * Equals method and hashcode has a contract and must return consistent values.
+     * @return hash code using toString implementation
+     */
+    @Override
+    public int hashCode() {
+        return this.toString().hashCode();
     }
 }

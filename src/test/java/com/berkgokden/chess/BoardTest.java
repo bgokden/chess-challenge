@@ -37,11 +37,6 @@ public class BoardTest {
     }
 
     @Test
-    public void testPutPieceToFirstAvailableSquare() throws Exception {
-
-    }
-
-    @Test
     public void shouldPositionDummyPieceInEmeptySquaresCorrectly() throws Exception {
         Board board = new Board(3,3);
         assertTrue(board.putPieceToFirstAvailableSquare(new DummyPiece(), 0, 0));
@@ -62,13 +57,4 @@ public class BoardTest {
         assertEquals(0, piece1.getY());
     }
 
-    @Test
-    public void testPrettyPrint() throws Exception {
-
-    }
-
-    @Test
-    public void testGetLastPositions() throws Exception {
-
-    }
 }
