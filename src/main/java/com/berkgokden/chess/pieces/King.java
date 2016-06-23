@@ -17,6 +17,7 @@ public class King extends Piece {
      * A king can move one square in any direction
      * (horizontally, vertically, or diagonally)
      * unless the square is already occupied by a friendly piece
+     * (Source: https://en.wikipedia.org/wiki/King_(chess) )
      * @param piece other piece object to check against
      * @return true if this does not threaten other piece
      */
