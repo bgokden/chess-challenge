@@ -1,4 +1,7 @@
-package com.berkgokden.chess;
+package com.berkgokden.chess.pieces;
+
+import com.berkgokden.chess.Piece;
+import com.berkgokden.chess.PieceType;
 
 /**
  * Dummy Piece moking as King to used in Tests.

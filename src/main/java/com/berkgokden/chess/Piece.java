@@ -23,7 +23,7 @@ public abstract class Piece{
 
     /**
      * Mutual checking the piece positions
-     * @param piece other piece object to check againts
+     * @param piece other piece object to check against
      * @return true if this piece and other piece do not threaten each other
      */
     public boolean isPossibleToPlace(Piece piece) {
@@ -52,7 +52,7 @@ public abstract class Piece{
 
     /**
      * This toString method implemented for easier debugging
-     * @return Type name , x, y
+     * @return Type name, x, y
      */
     @Override
     public String toString() {

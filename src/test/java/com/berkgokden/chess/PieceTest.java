@@ -1,5 +1,6 @@
 package com.berkgokden.chess;
 
+import com.berkgokden.chess.pieces.DummyPiece;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
