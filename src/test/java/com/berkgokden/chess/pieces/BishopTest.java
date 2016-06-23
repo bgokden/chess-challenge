@@ -7,33 +7,33 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Tests the methods of Queen Piece.
+ * Tests the methods of Bishop Piece.
  */
-public class QueenTest {
+public class BishopTest {
 
     @Test
-    public void shouldPassWhenPieceTypeReturnsAsQueen() throws Exception {
-        assertEquals(PieceType.QUEEN, new Queen().getType());
+    public void shouldPassWhenPieceTypeReturnsAsBishop() throws Exception {
+        assertEquals(PieceType.BISHOP, new Bishop().getType());
     }
 
     @Test
     public void shouldPassWhentIsSafeWorksCorrectly() throws Exception {
-        Piece piece = new Queen();
+        Piece piece = new Bishop();
         piece.setX(2);
         piece.setY(2);
 
-        // Vertically not safe
+        // Vertically safe
         Piece piece1 = new DummyPiece();
         piece1.setX(2);
         piece1.setY(0);
 
-        assertFalse(piece.isSafe(piece1));
+        assertTrue(piece.isSafe(piece1));
 
-        // Horizontally not safe
+        // Horizontally safe
         piece1.setX(0);
         piece1.setY(2);
 
-        assertFalse(piece.isSafe(piece1));
+        assertTrue(piece.isSafe(piece1));
 
         // Diagonally not safe
         piece1.setX(4);
@@ -41,7 +41,12 @@ public class QueenTest {
 
         assertFalse(piece.isSafe(piece1));
 
-        // Safe position
+        piece1.setX(0);
+        piece1.setY(4);
+
+        assertFalse(piece.isSafe(piece1));
+
+        // Random Safe position
         piece1.setX(3);
         piece1.setY(4);
 
