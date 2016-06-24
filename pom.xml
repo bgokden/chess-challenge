@@ -13,6 +13,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <sonar.language>java</sonar.language>
+    <exec.mainClass>com.berkgokden.App</exec.mainClass>
   </properties>
 
   <dependencies>
@@ -63,6 +64,22 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>sonar-maven-plugin</artifactId>
         <version>2.4</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.5.0</version>
+        <executions>
+          <execution>
+              <goals>
+                <goal>java</goal>
+              </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <mainClass>com.berkgokden.App</mainClass>
+        </configuration>
       </plugin>
     </plugins>
   </build>

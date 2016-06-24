@@ -45,8 +45,9 @@ public class CaseTest {
     }
 
     /**
-     * Pieces:[KNIGHT, KING, KING, QUEEN, QUEEN, BISHOP, BISHOP]
-     * Time: 1166362 ms
+     * Test Case For Pieces:[KNIGHT, KING, KING, QUEEN, QUEEN, BISHOP, BISHOP]
+     * on 7x7 board
+     * Time: 1055124 ms
      * Solutions: Size(2148780)
      * @throws Exception
      */
@@ -74,6 +75,8 @@ public class CaseTest {
         PieceType[] pieces = new PieceType[] {PieceType.KING, PieceType.KING, PieceType.ROOK};
         ChessSolverHelper.generatePieceTypePermutations(permutations, new ArrayList<PieceType>(), new ArrayList(Arrays.asList(pieces)));
 
+        // TODO: aff proper checking
+        assertEquals(3, permutations.size());
         for (List<PieceType> permutation : permutations) {
             System.out.println(permutation);
         }

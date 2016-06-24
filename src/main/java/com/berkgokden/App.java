@@ -11,8 +11,10 @@ import java.util.Scanner;
 import java.util.Set;
 
 /**
- * Hello world!
+ * Main App
  *
+ * Reads input from commandline
+ * And prints output to commandline
  */
 public class App 
 {
@@ -21,6 +23,7 @@ public class App
     public static void main( String[] args )
     {
         logger.info( "Chess Challenge" );
+        System.out.println("Chess Challenge:");
         Scanner sc = new Scanner(System.in);
         System.out.println("Please insert M:");
         // TODO: apply input validation

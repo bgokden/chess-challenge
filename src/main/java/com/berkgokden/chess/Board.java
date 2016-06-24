@@ -53,19 +53,13 @@ public class Board {
         this.width = board.getWidth();
         this.height = board.getHeight();
         List<Piece> list = board.getPieces();
-        this.pieces = new ArrayList<>(list.size());
-        for (Piece piece : list) {
-            Piece copy = PieceType.getInstance(piece.getType());
-            copy.setX(piece.getX());
-            copy.setY(piece.getY());
-            pieces.add(copy);
-        }
+        this.pieces = new ArrayList<>(list);
 
         this.lastPositions = initialLastPositions();
         for (Map.Entry<PieceType, Location> pieceTypeLocationEntry : board.getLastPositions().entrySet()) {
             Location location =
                     new Location(pieceTypeLocationEntry.getValue().getX(), pieceTypeLocationEntry.getValue().getY());
-            lastPositions.put(PieceType.valueOf(pieceTypeLocationEntry.getKey().name()), location);
+            lastPositions.put(pieceTypeLocationEntry.getKey(), location);
         }
     }
 

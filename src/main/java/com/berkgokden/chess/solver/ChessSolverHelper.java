@@ -37,8 +37,8 @@ public class ChessSolverHelper {
      * @return set of boards as solution
      */
     public static Set<Board> solve(int m, int n, Map<PieceType, Integer> resources) {
+        solutionSet.clear();
         long startTime = System.currentTimeMillis();
-
         Set<List<PieceType>> permutations = new HashSet<List<PieceType>>();
         List<PieceType> pieces = new ArrayList<>(resources.size());
         for (PieceType pieceType : resources.keySet()) {
@@ -46,7 +46,7 @@ public class ChessSolverHelper {
                 pieces.add(pieceType);
             }
         }
-        System.out.println("Pieces:"+pieces);
+        // System.out.println("Pieces:"+pieces);
         ChessSolverHelper.generatePieceTypePermutations(permutations, new ArrayList<PieceType>(), pieces);
 
         for (List<PieceType> permutation : permutations) {
